@@ -1,37 +1,45 @@
 <template>
-  <div class="wrapper image" :class="textos[currentSentence].image">
-    <b-container fluid>
-      <b-row class="py-4">
-        <b-col class="button">
-          <button-custom @passhere="backflag"
-            ><slot>Anterior</slot></button-custom
-          >
-        </b-col>
-        <b-col class="button">
-          <button-custom @passhere="fordwardflag"
-            ><slot>Següent</slot></button-custom
-          >
-        </b-col>
-      </b-row>
-      <escena-tutorial
-        v-for="text in textos"
-        :key="text.key"
-        :isActive="text.isValid"
-        :row="text"
-      ></escena-tutorial>
-    </b-container>
+  <div class="home">
+    <TheLanding @toogleLanding="whatWeDo" v-if="currentRender"/>
+    <div class="wrapper image" 
+    :class="textos[currentSentence].image"
+    v-else
+    >
+      <b-container fluid>
+        <b-row class="py-4">
+          <b-col class="button">
+            <button-custom @passhere="backflag"
+              ><slot>Anterior</slot></button-custom
+            >
+          </b-col>
+          <b-col class="button">
+            <button-custom @passhere="fordwardflag"
+              ><slot>Següent</slot></button-custom
+            >
+          </b-col>
+        </b-row>
+        <escena-tutorial
+          v-for="text in textos"
+          :key="text.key"
+          :isActive="text.isValid"
+          :row="text"
+        ></escena-tutorial>
+      </b-container>
+    </div>
   </div>
 </template>
 
 <script>
 import escenaTutorial from "./Escena.vue";
 import buttonCustom from "./ButtonCustom.vue";
+import TheLanding from "./TheLanding.vue";
 
 export default {
   name: "homeTutorial",
   components: {
     escenaTutorial,
     buttonCustom,
+    TheLanding,
   },
   data() {
     return {
@@ -40,28 +48,29 @@ export default {
           content:
             "El nostre heroi estava surant per l'espai sideral quen a la llunyania va albirar una nau espacial",
           isValid: true,
-          image: "image1"
+          image: "image1",
         },
         {
           content:
             "Sentia curiositat per l'interior de la nau i es va posar a inspeccionar-la. Va arribar a una sala amb dues portes",
           isValid: false,
-          image: "image2"
+          image: "image2",
         },
         {
           content:
             "L'heroi va decidir travessar la porta que el portava a casa",
           isValid: false,
-          image: "image3"
+          image: "image3",
         },
         {
           content:
             "Mentrstant, altres heroes no van tinir tanta sort en la seva elecció...",
           isValid: false,
-          image: "image4"
+          image: "image4",
         },
       ],
       currentSentence: 0,
+      currentRender: true
     };
   },
 
@@ -83,37 +92,39 @@ export default {
         this.textos[this.currentSentence].isValid = true;
       }
     },
+    whatWeDo(){
+      return this.currentRender = false;
+    }
   },
 };
 </script>
 
 <style>
 .container-fluid {
-  width: 90% !important 
+  width: 90% !important;
 }
 
 .wrapper {
   height: 100vh;
 }
 
-.wrapper.image.image1{
-  background-image: url('../assets/img/1.jpg');
+.wrapper.image.image1 {
+  background-image: url("../assets/img/1.jpg");
 }
 
-.wrapper.image.image2{
-  background-image: url('../assets/img/2.jpg');
+.wrapper.image.image2 {
+  background-image: url("../assets/img/2.jpg");
 }
 
-.wrapper.image.image3{
-  background-image: url('../assets/img/3.jpg');
+.wrapper.image.image3 {
+  background-image: url("../assets/img/3.jpg");
 }
 
-.wrapper.image.image4{
-  background-image: url('../assets/img/4.jpg');
+.wrapper.image.image4 {
+  background-image: url("../assets/img/4.jpg");
 }
 
-.wrapper.image{
-  
+.wrapper.image {
   background-repeat: no-repeat;
   background-size: contain;
   background-size: 100%;
