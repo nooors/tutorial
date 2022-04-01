@@ -1,20 +1,17 @@
 <template>
   <div class="home">
-    <TheLanding @toogleLanding="whatWeDo" v-if="currentRender"/>
-    <div class="wrapper image" 
-    :class="textos[currentSentence].image"
-    v-else
-    >
+    <TheLanding @toogleLanding="whatWeDo" v-if="currentRender" />
+    <div class="wrapper image" :class="textos[currentSentence].image" v-else>
       <b-container fluid>
         <b-row class="py-4">
           <b-col class="button">
             <button-custom @passhere="backflag"
-              ><slot>Anterior</slot></button-custom
+              ><slot>Prev</slot></button-custom
             >
           </b-col>
           <b-col class="button">
             <button-custom @passhere="fordwardflag"
-              ><slot>Següent</slot></button-custom
+              ><slot>Next</slot></button-custom
             >
           </b-col>
         </b-row>
@@ -70,7 +67,7 @@ export default {
         },
       ],
       currentSentence: 0,
-      currentRender: true
+      currentRender: true,
     };
   },
 
@@ -92,9 +89,9 @@ export default {
         this.textos[this.currentSentence].isValid = true;
       }
     },
-    whatWeDo(){
-      return this.currentRender = false;
-    }
+    whatWeDo() {
+      return (this.currentRender = false);
+    },
   },
 };
 </script>
